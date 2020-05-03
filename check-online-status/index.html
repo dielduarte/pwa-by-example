@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hello world</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Hello world</h1>
+    <h3>
+      open devtools => aplication => service workers => check offline and
+      refresh the app
+    </h3>
+    <h5>status: <span id="js-status"></span></h5>
+    <script>
+      window.addEventListener('load', () => {
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('/service-worker.js');
+        }
+
+        const statusElement = document.getElementById('js-status');
+
+        function setStatusElemen() {
+          statusElement.innerHTML = navigator.onLine ? 'online' : 'offline';
+        }
+
+        setStatusElemen();
+
+        window.addEventListener('online', setStatusElemen);
+        window.addEventListener('offline', setStatusElemen);
+      });
+    </script>
+  </body>
+</html>
